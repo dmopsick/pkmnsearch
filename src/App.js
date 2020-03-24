@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import * as pokemonService from './services/pokemon-service';
 
 const useStyles = makeStyles({
   field: {
@@ -52,6 +53,7 @@ const generations = [
 
 function App() {
   const classes = useStyles();
+  console.log(pokemonService.getPokemonByName("pikachu"));
 
   // Define constant link base
   const urlBase = "http://serebii.net/";
