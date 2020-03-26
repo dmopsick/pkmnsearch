@@ -53,7 +53,6 @@ const generations = [
 
 function App() {
   const classes = useStyles();
-  console.log(pokemonService.getPokemonByName("pikachu"));
 
   // Define constant link base
   const urlBase = "http://serebii.net/";
@@ -79,7 +78,6 @@ function App() {
   }
 
   const updateURL = () => {
-    console.log("FLAG 1");
     console.log(generation);
     console.log(pokemonName);
     dynamicURL = urlBase + generation + "/" + pokemonName;
@@ -87,37 +85,48 @@ function App() {
     document.getElementById("dynamicLink").href = dynamicURL;
   };
 
+  // The function that will be called when the generate link button is pressed
+  const generateLink = () => {
+
+  }
+
   // Text field components taken from https://material-ui.com/components/text-fields/
   return (
 
     <div className="App">
       <header className="App-header">
-        Open the Serebii page you want, fast.
+        Open the Serebii page you want, slowly.
 
-          <TextField id="pokemonName" value={pokemonName} onChange={handleNameChange} className={classes.field} label="Enter Pokémon Name." />
+        <TextField id="pokemonName" value={pokemonName} onChange={handleNameChange} className={classes.field} label="Enter Pokémon Name." />
 
-          <TextField
-            id="select-generation"
-            select
-            className={classes.field}
-            label="Select the gen"
-            value={generation}
-            onChange={handleGenChange}
-            helperText="Select which generation you want info for."
-          >
-            {generations.map(gen => (
-              console.log(gen),
-              <MenuItem key="gen.label" value={gen.value}>
-                {gen.label}
-              </MenuItem>
-            ))}
-          </TextField>
+        <TextField
+          id="select-generation"
+          select
+          className={classes.field}
+          label="Select the gen"
+          value={generation}
+          onChange={handleGenChange}
+          helperText="Select which generation you want info for."
+        >
+          {generations.map(gen => (
+            console.log(gen),
+            <MenuItem key="gen.label" value={gen.value}>
+              {gen.label}
+            </MenuItem>
+          ))}
+        </TextField>
 
-        <a id="dynamicLink"href={dynamicURL} target="_blank">
-          <Button variant="contained">
-            Open Serebii
-            </Button>
-        </a>
+         
+        <Button variant="contained" className={classes.field} onClick={generateLink}>
+            Generate Link
+        </Button>
+
+        <p id="generateLinkResponseText">Show text that shows how the generating went</p>
+
+        <Button id="dynamicLink" variant="contained" className={classes.field} disabled>
+          Open Serebii
+        </Button>
+
       </header>
     </div>
   );
