@@ -58,11 +58,11 @@ function App() {
   const urlBase = "http://serebii.net/";
 
   // Initialize variables | I do not think this is the best way but here it is
-  let generation, pokemonName, dynamicURL = "";
+  let generation, pokemonName, pokemonNationalDexNum, dynamicURL = "";
 
   const handleGenChange = event => {
     generation = event.target.value;
-    updateURL();
+    // updateURL();
     console.log(dynamicURL);
   };
 
@@ -87,7 +87,23 @@ function App() {
 
   // The function that will be called when the generate link button is pressed
   const generateLink = () => {
+    console.log(generation);
+    console.log(pokemonName);
 
+    // Get the dex num
+    pokemonService.getPokemonNationalDexNumByName(pokemonName).then((nationlDexNumResponse) => {
+      console.log("NATIONAL DEX NUM - " + nationlDexNumResponse);
+      // Assign the response of the query for national dex to the variable
+      // If the name is invalid The response will be null 
+      pokemonNationalDexNum = nationlDexNumResponse;
+    });
+
+    // dynamicLink = urlBase + generation + "/" + pokemonName;
+
+    // console.log(dynamicLink);
+
+    // Having trouble getting href to populate dynamically with react
+    // document.getElementById("dynamicLink").href = dynamicURL;
   }
 
   // Text field components taken from https://material-ui.com/components/text-fields/
