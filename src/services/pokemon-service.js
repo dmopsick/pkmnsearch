@@ -17,19 +17,32 @@ export async function getPokemonByName(pokemonName) {
     return pokemonResponse;
 }
 
-// This is used to generate a link 
+// This is used to generate a link | Should be used for Gens 1-7
 // Take in the name of a pokemon and return it's National Dex ID number
 // If the entered name is not a valid pokemon name the request returns null
-// ^ I guess also if the pokemon does not exist in that generation
 export async function getPokemonNationalDexNumByName(pokemonName) {
     // Strip the whitespace from the pokemon name.. to be safe doing it here
     const formattedPokemonName = pokemonName.trim();
 
-    const pokemonResponse = await P.getPokemonByName(formattedPokemonName)
+    // Assign a variable to return 
+    let pokemonNationalDexNum;
 
-    // Get the national dex num of the pokemon
-    // If the pokemon name is invalid/ or pokemon does not exist in this gen, returns null
-    const pokemonNationalDexNum = pokemonResponse.id;
+    // Surround the call to the API with a try catch block
+    // Prevents invalid pokemon name to error out the system
+    try {
+        const pokemonResponse = await P.getPokemonByName(formattedPokemonName).then((response => {
+            console.log("FLAG 10")
+            console.log(response);
+
+            // Get the national dex num of the pokemon
+            pokemonNationalDexNum = response.id;
+        }));
+
+    }
+    catch (e) {
+        console.log(e);
+        pokemonNationalDexNum = -1;
+    }
 
     return pokemonNationalDexNum;
 }
